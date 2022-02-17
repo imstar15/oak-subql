@@ -78,21 +78,22 @@ Open your browser and head to `http://localhost:3000`.
 Finally, you should see a GraphQL playground is showing in the explorer and the schemas that ready to query.
 
 ````graphql
-{
-    query {
-    accounts(first: 5) {
+query {
+    accountSnapshots (first: 5) {
         nodes {
-        id
+            id
+            accountId
+            snapshotAtBlock
+            freeBalance
         }
     }
-    transfers(first: 5) {
+    accounts (first: 5) {
         nodes {
-        id
-        amount
-        blockNumber
-        toId
+            id
+            freeBalance
+            reserveBalance
+            totalBalance
         }
-    }
     }
 }
 ````
