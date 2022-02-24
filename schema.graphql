@@ -111,3 +111,24 @@ type IDGenerator @entity {
   "asscending ID"
   aID: BigInt!
 }
+
+type AutomationTimeEvent @entity {
+  id: ID!
+  blockHeight: BigInt!
+  idx: Int!
+  module: String!
+  event: String!
+  docs: [String]!
+  extrinsic: AutomationTimeExtrinsic
+  timestamp: Date!
+}
+
+type AutomationTimeExtrinsic @entity {
+  id: ID!
+  blockHeight: BigInt!
+  idx: Int!
+  module: String!
+  call: String!
+  success: Boolean!
+  timestamp: Date!
+}
