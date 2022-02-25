@@ -13,7 +13,7 @@ network:
   dictionary: https://api.subquery.network/sq/subquery/neumann-dictionary
 dataSources:
   - kind: substrate/Runtime
-    startBlock: 7000
+    startBlock: 1
     mapping:
       file: ./dist/index.js
       handlers:
@@ -23,3 +23,8 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             module: automationTime
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: system
+            method: ExtrinsicFailed
