@@ -112,23 +112,28 @@ type IDGenerator @entity {
   aID: BigInt!
 }
 
-type AutomationTimeEvent @entity {
+type Event @entity {
   id: ID!
   blockHeight: BigInt!
   idx: Int!
   module: String!
   event: String!
   docs: [String]!
-  extrinsic: AutomationTimeExtrinsic
+  extrinsic: Extrinsic
   timestamp: Date!
 }
 
-type AutomationTimeExtrinsic @entity {
+type Extrinsic @entity {
   id: ID!
   blockHeight: BigInt!
   idx: Int!
   module: String!
   call: String!
   success: Boolean!
+  args: Args
   timestamp: Date!
+}
+
+type Args @jsonField {
+  placeholder: String
 }

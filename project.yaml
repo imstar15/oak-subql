@@ -19,7 +19,7 @@ dataSources:
       handlers:
         # - handler: handleBlock
         #   kind: substrate/BlockHandler
-        - handler: handleAutomationTimeEvent
+        - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             module: automationTime
