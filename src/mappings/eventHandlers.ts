@@ -1,13 +1,20 @@
 import { SubstrateEvent, SubstrateExtrinsic } from "@subql/types";
-import { Event } from "../types/models/Event";
-import { Extrinsic } from "../types/models/Extrinsic";
+import { BaseEvent, BaseExtrinsic } from "../types";
 
 export async function handleEvent(substrateEvent: SubstrateEvent): Promise<void> {
   const { idx, block, event, extrinsic } = substrateEvent;
   const blockHeight = block.block.header.number;
+
   let callId = null;
   if (typeof extrinsic !== 'undefined') {
-    callId = await createExtrinsic(extrinsic);
+    const { section: extrinsicModule, method: extrinsicMethod } = extrinsic.extrinsic.method;
+    // Skip indexing events for mandatory system extrinsics
+    if ((extrinsicModule === 'parachainSystem' && extrinsicMethod === 'setValidationData') ||
+      (extrinsicModule === 'timestamp' && extrinsicMethod === 'set')) {
+      return;
+    }
+
+    callId = await findOrCreateExtrinsic(extrinsic);
   }
 
   const eventAttributes = {
@@ -15,33 +22,40 @@ export async function handleEvent(substrateEvent: SubstrateEvent): Promise<void>
     blockHeight: blockHeight.toBigInt(),
     idx: idx,
     module: event.section,
-    event: event.method,
-    docs: event.meta.docs.map(String),
+    method: event.method,
+    data: event.data.toJSON(),
+    docs: event.meta.docs.join(" "),
     extrinsicId: callId,
-    timestamp: block.timestamp
+    timestamp: block.timestamp,
   }
 
-  await Event.create(eventAttributes).save();
+  await BaseEvent.create(eventAttributes).save();
 }
 
-async function createExtrinsic(substrateExtrinsic: SubstrateExtrinsic): Promise<String> {
+async function findOrCreateExtrinsic(substrateExtrinsic: SubstrateExtrinsic): Promise<String> {
   const { idx, block, extrinsic } = substrateExtrinsic;
   const blockHeight = block.block.header.number;
+  const id = `extrinsic-${blockHeight}-${idx}`;
 
-  const { args } = JSON.parse(JSON.stringify(extrinsic.method.toHuman(true)));
+  const existingBaseExtrinsic = await BaseExtrinsic.get(id)
+  if (typeof existingBaseExtrinsic !== 'undefined') {
+    return existingBaseExtrinsic.id;
+  }
+
+  const { args } = extrinsic.method.toJSON();
 
   const callAttributes = {
-    id: `call-${blockHeight}-${idx}`,
+    id: id,
     blockHeight: blockHeight.toBigInt(),
     idx: idx,
     module: extrinsic.method.section,
-    call: extrinsic.method.method,
+    method: extrinsic.method.method,
     success: substrateExtrinsic.success,
     args: args,
     timestamp: block.timestamp
   }
 
-  const record = Extrinsic.create(callAttributes);
+  const record = BaseExtrinsic.create(callAttributes);
   await record.save();
   return record.id;
 }

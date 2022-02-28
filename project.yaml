@@ -21,10 +21,3 @@ dataSources:
         #   kind: substrate/BlockHandler
         - handler: handleEvent
           kind: substrate/EventHandler
-          filter:
-            module: automationTime
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: system
-            method: ExtrinsicFailed
