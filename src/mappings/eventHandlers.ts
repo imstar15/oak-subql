@@ -1,5 +1,5 @@
 import { SubstrateEvent, SubstrateExtrinsic } from "@subql/types";
-import { BaseEvent, BaseExtrinsic } from "../types";
+import { Event, Extrinsic } from "../types";
 
 export async function handleEvent(substrateEvent: SubstrateEvent): Promise<void> {
   const { idx, block, event, extrinsic } = substrateEvent;
@@ -29,7 +29,7 @@ export async function handleEvent(substrateEvent: SubstrateEvent): Promise<void>
     timestamp: block.timestamp,
   }
 
-  await BaseEvent.create(eventAttributes).save();
+  await Event.create(eventAttributes).save();
 }
 
 async function findOrCreateExtrinsic(substrateExtrinsic: SubstrateExtrinsic): Promise<String> {
@@ -37,7 +37,7 @@ async function findOrCreateExtrinsic(substrateExtrinsic: SubstrateExtrinsic): Pr
   const blockHeight = block.block.header.number;
   const id = `extrinsic-${blockHeight}-${idx}`;
 
-  const existingBaseExtrinsic = await BaseExtrinsic.get(id)
+  const existingBaseExtrinsic = await Extrinsic.get(id)
   if (typeof existingBaseExtrinsic !== 'undefined') {
     return existingBaseExtrinsic.id;
   }
@@ -55,7 +55,7 @@ async function findOrCreateExtrinsic(substrateExtrinsic: SubstrateExtrinsic): Pr
     timestamp: block.timestamp
   }
 
-  const record = BaseExtrinsic.create(callAttributes);
+  const record = Extrinsic.create(callAttributes);
   await record.save();
   return record.id;
 }

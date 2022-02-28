@@ -112,7 +112,7 @@ type IDGenerator @entity {
   aID: BigInt!
 }
 
-type BaseEvent @entity {
+type Event @entity {
   id: ID!
   blockHeight: BigInt!
   idx: Int!
@@ -120,11 +120,11 @@ type BaseEvent @entity {
   method: String!
   docs: String!
   data: Args
-  extrinsic: BaseExtrinsic
+  extrinsic: Extrinsic
   timestamp: Date!
 }
 
-type BaseExtrinsic @entity {
+type Extrinsic @entity {
   id: ID!
   blockHeight: BigInt!
   idx: Int!
@@ -132,7 +132,7 @@ type BaseExtrinsic @entity {
   method: String!
   success: Boolean!
   args: Args
-  events: [BaseEvent] @derivedFrom(field: "extrinsic")
+  events: [Event] @derivedFrom(field: "extrinsic")
   timestamp: Date!
 }
 
