@@ -23,7 +23,7 @@ export async function handleEvent(substrateEvent: SubstrateEvent): Promise<void>
     idx: idx,
     module: event.section,
     method: event.method,
-    data: event.data.toJSON(),
+    data: event.data.toHuman(),
     docs: event.meta.docs.join(" "),
     extrinsicId: callId,
     timestamp: block.timestamp,
@@ -42,7 +42,7 @@ async function findOrCreateExtrinsic(substrateExtrinsic: SubstrateExtrinsic): Pr
     return existingBaseExtrinsic.id;
   }
 
-  const { args } = extrinsic.method.toJSON();
+  const args = extrinsic.method.toHuman()['args'];
 
   const callAttributes = {
     id: id,
