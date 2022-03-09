@@ -111,3 +111,31 @@ type IDGenerator @entity {
   "asscending ID"
   aID: BigInt!
 }
+
+type Event @entity {
+  id: ID!
+  blockHeight: BigInt!
+  idx: Int!
+  module: String!
+  method: String!
+  docs: String!
+  data: Args
+  extrinsic: Extrinsic
+  timestamp: Date!
+}
+
+type Extrinsic @entity {
+  id: ID!
+  blockHeight: BigInt!
+  idx: Int!
+  module: String!
+  method: String!
+  success: Boolean!
+  args: Args
+  events: [Event] @derivedFrom(field: "extrinsic")
+  timestamp: Date!
+}
+
+type Args @jsonField {
+  placeholder: String
+}

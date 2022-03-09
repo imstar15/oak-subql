@@ -167,8 +167,6 @@ async function getAccountInfoAtBlockNumber(
   return accountInfo;
 }
 
-export async function handleEvent(event: SubstrateEvent): Promise<void> { }
-
 const generaterID = "GENERATOR";
 
 const getID = async () => {

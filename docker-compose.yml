@@ -18,8 +18,7 @@ services:
   subquery-node:
     image: onfinality/subql-node:latest
     depends_on:
-      "postgres":
-        condition: service_healthy
+      - postgres
     restart: always
     environment:
       DB_USER: postgres
@@ -43,10 +42,8 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      "postgres":
-        condition: service_healthy
-      "subquery-node":
-        condition: service_healthy
+      - postgres
+      - subquery-node
     restart: always
     environment:
       DB_USER: postgres
@@ -58,3 +55,17 @@ services:
       - --name=app
       - --playground
       - --indexer=http://subquery-node:3000
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 9000:3000
+    depends_on:
+      - graphql-engine
+    volumes:
+      - grafana-data:/var/lib/grafana
+    environment:
+      - GF_INSTALL_PLUGINS=fifemon-graphql-datasource
+
+volumes:
+  grafana-data:

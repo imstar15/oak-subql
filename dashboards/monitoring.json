@@ -1,0 +1,878 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 18,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "timestamp"
+          }
+        ]
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "extrinsics.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "queryText": "query {\n  extrinsics(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" },\n    method: { equalTo: \"scheduleNotifyTask\" },\n    success: { equalTo: false }\n  }) {\n    nodes {\n      timestamp blockHeight method args\n    }\n  }\n}",
+          "refId": "Scheduled Notifications",
+          "timePath": "timestamp"
+        },
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "extrinsics.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "hide": false,
+          "queryText": "query {\n  extrinsics(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" },\n    method: { equalTo: \"scheduleNativeTransferTask\" },\n    success: { equalTo: false }\n  }) {\n    nodes {\n      timestamp blockHeight method args\n    }\n  }\n}",
+          "refId": "Scheduled Transfers",
+          "timePath": "timestamp"
+        }
+      ],
+      "title": "Failed Task Scheduling",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "timestamp"
+          }
+        ]
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "aliasBy": "Native Transfer",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "extrinsics.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "queryText": "query {\n  extrinsics(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" },\n    method: { equalTo: \"scheduleNativeTransferTask\" },\n    success: { equalTo: false }\n  }) {\n    nodes {\n      timestamp method\n    }\n  }\n}",
+          "refId": "A",
+          "timePath": "timestamp"
+        },
+        {
+          "aliasBy": "Notify",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "extrinsics.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "hide": false,
+          "queryText": "query {\n  extrinsics(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" },\n    method: { equalTo: \"scheduleNotifyTask\" },\n    success: { equalTo: false }\n  }) {\n    nodes {\n      timestamp method\n    }\n  }\n}",
+          "refId": "B",
+          "timePath": "timestamp"
+        }
+      ],
+      "title": "Failed Task Scheduling",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "labelsToFields": false,
+            "mode": "seriesToRows",
+            "reducers": [
+              "count"
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 18,
+        "x": 0,
+        "y": 8
+      },
+      "id": 6,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "timestamp"
+          }
+        ]
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "extrinsics.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "queryText": "query {\n  extrinsics(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" },\n    method: { equalTo: \"scheduleNotifyTask\" },\n    success: { equalTo: true }\n  }) {\n    nodes {\n      timestamp blockHeight method args\n    }\n  }\n}",
+          "refId": "A",
+          "timePath": "timestamp"
+        },
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "extrinsics.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "hide": false,
+          "queryText": "query {\n  extrinsics(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" },\n    method: { equalTo: \"scheduleNativeTransferTask\" },\n    success: { equalTo: true }\n  }) {\n    nodes {\n      timestamp blockHeight method args\n    }\n  }\n}",
+          "refId": "B",
+          "timePath": "timestamp"
+        }
+      ],
+      "title": "Successful Task Scheduling",
+      "type": "table"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 8
+      },
+      "id": 7,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "timestamp"
+          }
+        ]
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "aliasBy": "Native Transfer",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "extrinsics.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "queryText": "query {\n  extrinsics(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" },\n    method: { equalTo: \"scheduleNativeTransferTask\" },\n    success: { equalTo: true }\n  }) {\n    nodes {\n      timestamp method\n    }\n  }\n}",
+          "refId": "A",
+          "timePath": "timestamp"
+        },
+        {
+          "aliasBy": "Notify",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "extrinsics.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "hide": false,
+          "queryText": "query {\n  extrinsics(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" },\n    method: { equalTo: \"scheduleNotifyTask\" },\n    success: { equalTo: true }\n  }) {\n    nodes {\n      timestamp method\n    }\n  }\n}",
+          "refId": "B",
+          "timePath": "timestamp"
+        }
+      ],
+      "title": "Successful Task Scheduling",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "labelsToFields": false,
+            "mode": "seriesToRows",
+            "reducers": [
+              "count"
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 18,
+        "x": 0,
+        "y": 16
+      },
+      "id": 8,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "timestamp"
+          }
+        ]
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "events.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "queryText": "query {\n  events(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" },\n    method: { equalTo: \"Notify\" }\n  }) {\n    nodes {\n      timestamp blockHeight method data\n    }\n  }\n}",
+          "refId": "A",
+          "timePath": "timestamp"
+        },
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "events.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "hide": false,
+          "queryText": "query {\n  events(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" },\n    method: { equalTo: \"SuccesfullyTransferredFunds\" }\n  }) {\n    nodes {\n      timestamp blockHeight method data\n    }\n  }\n}",
+          "refId": "B",
+          "timePath": "timestamp"
+        }
+      ],
+      "title": "Successful Task Execution",
+      "type": "table"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 16
+      },
+      "id": 9,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "timestamp"
+          }
+        ]
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "aliasBy": "SuccesfullyTransferredFunds",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "events.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "queryText": "query {\n  events(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" },\n    method: { equalTo: \"SuccesfullyTransferredFunds\" }\n  }) {\n    nodes {\n      timestamp method\n    }\n  }\n}",
+          "refId": "A",
+          "timePath": "timestamp"
+        },
+        {
+          "aliasBy": "Notify",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "events.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "hide": false,
+          "queryText": "query {\n  events(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" },\n    method: { equalTo: \"Notify\" }\n  }) {\n    nodes {\n      timestamp method\n    }\n  }\n}",
+          "refId": "B",
+          "timePath": "timestamp"
+        }
+      ],
+      "title": "Successful Task Execution",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "labelsToFields": false,
+            "mode": "seriesToRows",
+            "reducers": [
+              "count"
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 18,
+        "x": 0,
+        "y": 24
+      },
+      "id": 11,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "timestamp"
+          }
+        ]
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "transfers.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "queryText": "query {\n  transfers(filter: { \n    timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" }\n  }) {\n    nodes {\n      timestamp blockNumber toAccountId fromAccountId balanceChange\n    }\n  }\n}",
+          "refId": "A",
+          "timePath": "timestamp"
+        }
+      ],
+      "title": "Transfers (Is this all transactions?)",
+      "type": "table"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 24
+      },
+      "id": 10,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "method"
+          }
+        ]
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "aliasBy": "Unique Wallets (All Time)",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "accounts.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "queryText": "query {\n  accounts {\n    nodes {\n      id\n    }\n  }\n}",
+          "refId": "A",
+          "timePath": ""
+        }
+      ],
+      "title": "Wallets",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "distinctCount"
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 24,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
+      "id": 2,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "blockHeight"
+          }
+        ]
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "events.nodes",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "MvdHpGLnk"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "",
+          "queryText": "query {\n  events(filter: { timestamp: { greaterThanOrEqualTo: \"${__from:date:iso}\", lessThanOrEqualTo: \"${__to:date:iso}\" }}) {\n    nodes {\n      timestamp\n      blockHeight\n      method\n      module\n      data\n      extrinsic {\n        success\n        args\n      }\n    }\n  }\n}",
+          "refId": "A",
+          "timePath": "timestamp"
+        }
+      ],
+      "title": "Global Events Table",
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 35,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Monitoring",
+  "uid": "s-bCCZL7k",
+  "version": 4,
+  "weekStart": ""
+}
