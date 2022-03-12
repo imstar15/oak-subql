@@ -6,7 +6,7 @@ repository: https://github.com/subquery/neumann-subql
 schema:
   file: ./schema.graphql
 network:
-  endpoint: wss://neumann.api.onfinality.io/public-ws
+  endpoint: 'wss://neumann.api.onfinality.io/public-ws'
   genesisHash: '0x68577f68a47847fb974c220189333c46e83a899b6e375abf50b9a615d9019c20'
   chaintypes:
     file: ./dist/chaintypes.js
