@@ -21,7 +21,7 @@
   "author": "OAK Network",
   "license": "MIT",
   "devDependencies": {
-    "@polkadot/api": "^6",
+    "@polkadot/api": "7.8.1",
     "@subql/types": "latest",
     "typescript": "^4.5.4",
     "@subql/cli": "^0.16.2"

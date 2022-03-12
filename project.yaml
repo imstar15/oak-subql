@@ -16,7 +16,7 @@ dataSources:
     startBlock: 1
     mapping:
       file: ./dist/index.js
-      handlers:
+      handlers: 
         - handler: handleBlock
           kind: substrate/BlockHandler
         - handler: handleEvent

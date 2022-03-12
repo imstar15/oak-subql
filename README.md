@@ -28,7 +28,7 @@ subql help
 
 ## Install package deps
 ```
-yarn install
+    yarn install
 ```
 
 ## Configure your project
