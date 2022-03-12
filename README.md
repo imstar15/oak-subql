@@ -77,6 +77,8 @@ Open your browser and head to `http://localhost:3000`.
 
 Finally, you should see a GraphQL playground is showing in the explorer and the schemas that ready to query.
 
+#### Example: Account Snapshots
+
 ````graphql
 query {
     accountSnapshots (first: 5) {
@@ -97,3 +99,33 @@ query {
     }
 }
 ````
+#### Example: Automation task list
+
+```graphql
+query {
+  extrinsics(filter: { 
+    timestamp: { greaterThanOrEqualTo: <start_timestamp>, lessThanOrEqualTo: <end_timestamp> },
+    method: { in: ["scheduleNotifyTask", "scheduleNativeTaskTransfer"] },
+    success: { equalTo: true }
+  }) {
+    nodes {
+      timestamp blockHeight method args
+    }
+  }
+}
+```
+
+#### Example: Automation execution
+
+```graphql
+query {
+  events(filter: { 
+    timestamp: { greaterThanOrEqualTo: <start_timestamp>, lessThanOrEqualTo: <end_timestamp> },
+    method: { in: ["Notify", "SuccesfullyTransferredFunds"] }
+  }) {
+    nodes {
+      timestamp blockHeight method data
+    }
+  }
+}
+```
