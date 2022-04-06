@@ -1,5 +1,5 @@
-import { SubstrateEvent, SubstrateExtrinsic } from "@subql/types";
-import { Event, Extrinsic } from "../types";
+import { SubstrateBlock, SubstrateEvent, SubstrateExtrinsic } from "@subql/types";
+import { Block, Event, Extrinsic } from "../types";
 
 export async function handleEvent(substrateEvent: SubstrateEvent): Promise<void> {
   const { idx, block, event, extrinsic } = substrateEvent;
@@ -17,6 +17,8 @@ export async function handleEvent(substrateEvent: SubstrateEvent): Promise<void>
     callId = await findOrCreateExtrinsic(extrinsic);
   }
 
+  const blockId = await findOrCreateBlock(block);
+
   const eventAttributes = {
     id: `event-${blockHeight}-${idx}`,
     blockHeight: blockHeight.toBigInt(),
@@ -27,6 +29,7 @@ export async function handleEvent(substrateEvent: SubstrateEvent): Promise<void>
     docs: event.meta.docs.join(" "),
     extrinsicId: callId,
     timestamp: block.timestamp,
+    blockId: blockId.toString(),
   }
 
   await Event.create(eventAttributes).save();
@@ -56,6 +59,30 @@ async function findOrCreateExtrinsic(substrateExtrinsic: SubstrateExtrinsic): Pr
   }
 
   const record = Extrinsic.create(callAttributes);
+  await record.save();
+  return record.id;
+}
+
+async function findOrCreateBlock(substrateBlock: SubstrateBlock): Promise<String> {
+  const { specVersion, timestamp, block } = substrateBlock;
+  const blockHeight = block.header.number;
+  const blockHash = block.hash
+  const id = `block-${blockHeight}`;
+
+  const existingBaseBlock = await Block.get(id)
+  if (typeof existingBaseBlock !== 'undefined') {
+    return existingBaseBlock.id;
+  }
+
+  const blockAttributes = {
+    id: id,
+    hash: blockHash.toString(),
+    height: blockHeight.toBigInt(),
+    specVersion: specVersion,
+    timestamp: timestamp,
+  }
+
+  const record = Block.create(blockAttributes);
   await record.save();
   return record.id;
 }

@@ -122,6 +122,7 @@ type Event @entity {
   data: Args
   extrinsic: Extrinsic
   timestamp: Date!
+  block: Block
 }
 
 type Extrinsic @entity {
@@ -138,4 +139,13 @@ type Extrinsic @entity {
 
 type Args @jsonField {
   placeholder: String
+}
+
+type Block @entity {
+  id: ID!
+  hash: String!
+  height: BigInt!
+  specVersion: Int!
+  timestamp: Date!
+  events: [Event] @derivedFrom(field:"block")
 }
