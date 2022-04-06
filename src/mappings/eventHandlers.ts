@@ -67,14 +67,14 @@ async function findOrCreateBlock(substrateBlock: SubstrateBlock): Promise<String
   const { specVersion, timestamp, block } = substrateBlock;
   const blockHeight = block.header.number;
   const blockHash = block.hash
-  const id = `block-${blockHeight}-${blockHash}`;
+  const id = `block-${blockHeight}`;
 
   const existingBaseBlock = await Block.get(id)
   if (typeof existingBaseBlock !== 'undefined') {
     return existingBaseBlock.id;
   }
 
-  const callAttributes = {
+  const blockAttributes = {
     id: id,
     hash: blockHash.toString(),
     height: blockHeight.toBigInt(),
@@ -82,7 +82,7 @@ async function findOrCreateBlock(substrateBlock: SubstrateBlock): Promise<String
     timestamp: timestamp,
   }
 
-  const record = Block.create(callAttributes);
+  const record = Block.create(blockAttributes);
   await record.save();
   return record.id;
 }
