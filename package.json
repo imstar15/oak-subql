@@ -1,7 +1,7 @@
 {
-  "name": "neumann-subql",
+  "name": "oak-subql",
   "version": "0.0.4",
-  "description": "Any queries for subquery for OAK's neumann network",
+  "description": "Any queries for subquery for OAK's networks",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -b",
@@ -11,8 +11,8 @@
     "clean": "rm -rf .data",
     "go": "./node_modules/.bin/subql codegen && tsc -b && docker-compose pull && docker-compose up"
   },
-  "homepage": "https://github.com/subquery/neumann-subql",
-  "repository": "github:subquery/neumann-subql",
+  "homepage": "https://github.com/subquery/oak-subql",
+  "repository": "github:subquery/oak-subql",
   "files": [
     "dist",
     "schema.graphql",
