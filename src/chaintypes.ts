@@ -4,6 +4,24 @@ import type { OverrideBundleDefinition } from '@polkadot/types/types';
 /* eslint-disable sort-keys */
 
 const definitions: OverrideBundleDefinition = {
+    rpc: {
+        automationTime: {
+            generateTaskId: {
+                description: 'Getting task ID given account ID and provided ID',
+                params: [
+                    {
+                        name: 'accountId',
+                        type: 'AccountId',
+                    },
+                    {
+                        name: 'providedId',
+                        type: 'Text',
+                    },
+                ],
+                type: 'Hash',
+            },
+        },
+    },
     types: [
         {
             // on all versions
@@ -44,7 +62,14 @@ const definitions: OverrideBundleDefinition = {
                 RoundOf: 'Round'
             }
         }
-    ]
+    ],
 };
 
-export default { typesBundle: definitions };
+const typesBundleForPolkadot = {
+    spec: {
+        neumann: definitions,
+        turing: definitions,
+    }
+};
+
+export default { typesBundle: typesBundleForPolkadot };
