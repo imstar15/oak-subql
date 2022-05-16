@@ -55,6 +55,7 @@ services:
       - --name=app
       - --playground
       - --indexer=http://subquery-node:3000
+      - --unsafe
 
   grafana:
     image: grafana/grafana:latest
